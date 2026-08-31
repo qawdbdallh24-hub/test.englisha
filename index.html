@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الامتحان الإنجليزي (الجرامر) للصف الثاني البكالوريا - دكتور عبدالله قاعود</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<style>
+:root {
+  --primary: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --accent: #f59e0b;
+  --accent-glow: rgba(245, 158, 11, 0.4);
+  --card-bg: rgba(15, 23, 42, 0.85);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --text: #f8fafc;
+  --light: #94a3b8;
+  --border: #334155;
+  --success: #10b981;
+  --danger: #ef4444;
+  --radius: 20px;
+  --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] {
+  --primary: #1e3a8a;
+  --primary-dark: #0f172a;
+  --accent: #d97706;
+  --accent-glow: rgba(217, 119, 6, 0.3);
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --card-border: rgba(0, 0, 0, 0.1);
+  --text: #0f172a;
+  --light: #475569;
+  --border: #cbd5e1;
+  --shadow: 0 15px 30px -10px rgba(15, 23, 42, 0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #172554);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: color .4s;
+  position: relative;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+body::before {
+  content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: url('data:image/svg+xml;utf8,<svg opacity="0.03" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23fff" stroke-width="0.5"/></svg>') repeat;
+  z-index: -1; pointer-events: none;
+}
+
+/* Intro Screen */
+#intro-screen {
+  position: fixed; inset: 0; background: #020617;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999;
+  color: #fff; text-align: center; animation: fadeOut .6s ease 2.8s forwards;
+}
+.intro-img-container {
+  width: 170px; height: 170px; border-radius: 50%; border: 4px solid var(--accent);
+  overflow: hidden; box-shadow: 0 0 40px var(--accent-glow); animation: zoomIn 0.8s ease-out; margin-bottom: 20px;
+  background: #1e293b; display: flex; align-items: center; justify-content: center;
+}
+.intro-img-container img { width: 100%; height: 100%; object-fit: cover; }
+.intro-title { font-size: 2rem; font-weight: 900; opacity: 0; animation: fadeInUp .8s ease-out .3s forwards; }
+.intro-subtitle { font-size: 1.2rem; color: #cbd5e1; margin-top: 10px; opacity: 0; animation: fadeInUp .8s ease-out .6s forwards; }
+
+/* Header */
+header {
+  background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--card-border); padding: 12px 24px; display: flex;
+  justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100;
+  box-shadow: var(--shadow); transition: background .3s;
+}
+.brand-info { display: flex; align-items: center; gap: 14px; }
+.brand-info .img-wrapper { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--accent); overflow: hidden; background: #1e293b; flex-shrink: 0; box-shadow: 0 0 10px var(--accent-glow); }
+.brand-info img { width: 100%; height: 100%; object-fit: cover; }
+.brand-info h1 { font-size: 1.1rem; color: var(--text); font-weight: 800; line-height: 1.3; }
+.brand-info span { font-size: 0.8rem; color: var(--light); display: block; cursor: pointer; }
+.header-actions { display: flex; gap: 10px; }
+.btn-icon { background: var(--card-bg); border: 1px solid var(--card-border); width: 42px; height: 42px; border-radius: 50%; cursor: pointer; color: var(--text); transition: .2s; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.btn-icon:hover { opacity: 0.9; transform: scale(1.05); }
+
+/* Container & Cards */
+.container { max-width: 850px; width: 100%; margin: auto; padding: 24px 16px; }
+.card {
+  background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow);
+  border: 1px solid var(--card-border); margin-bottom: 24px; transition: background .3s, border .3s;
+}
+
+/* Form Elements */
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 700; color: var(--text); }
+.form-control { width: 100%; padding: 14px 18px; border: 2px solid var(--border); background: rgba(0, 0, 0, 0.2); color: var(--text); border-radius: 12px; font-size: 1rem; outline: 0; transition: .2s; }
+.form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+.error-msg { color: var(--danger); font-size: .88rem; margin-top: 6px; display: none; font-weight: 600; }
+.btn-primary { width: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; border: 0; padding: 16px; font-size: 1.15rem; font-weight: 800; border-radius: 12px; cursor: pointer; transition: .3s; box-shadow: 0 8px 20px -5px rgba(59, 130, 246, 0.4); }
+.btn-primary:hover { opacity: .95; transform: translateY(-2px); }
+
+/* Exam Screen Elements */
+#exam-screen, #result-screen, #admin-screen { display: none; }
+.exam-status-bar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 14px 20px; border-radius: 14px; margin-bottom: 20px; border: 1px solid var(--card-border); }
+
+.timer-container { display: flex; align-items: center; gap: 12px; }
+.timer { font-size: 1.25rem; font-weight: 800; color: var(--success); display: flex; align-items: center; gap: 8px; transition: color 0.4s ease; }
+.timer.timer-warning { color: var(--danger) !important; }
+
+.student-badge { font-size: 1rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+.student-badge .img-wrapper { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--accent); overflow: hidden; background: #1e293b; flex-shrink: 0; }
+.student-badge img { width: 100%; height: 100%; object-fit: cover; }
+
+.progress-bar-container { width: 100%; height: 10px; background: var(--border); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--primary)); width: 0%; transition: width .3s ease; }
+
+.question-header { display: flex; justify-content: space-between; margin-bottom: 16px; font-weight: 700; color: var(--light); font-size: .95rem; }
+.question-title { font-size: 1.3rem; line-height: 1.6; margin-bottom: 24px; font-weight: 800; direction: ltr; text-align: left; background: rgba(0, 0, 0, 0.3); padding: 18px; border-radius: 12px; border-left: 5px solid var(--accent); }
+.options-list { display: flex; flex-direction: column; gap: 14px; direction: ltr; }
+.option-item { border: 2px solid var(--border); padding: 16px 20px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 14px; transition: .2s; background: rgba(0, 0, 0, 0.15); text-align: left; font-size: 1.05rem; font-weight: 600; color: var(--text); }
+.option-item:hover { border-color: var(--primary); background: rgba(59, 130, 246, 0.1); }
+.option-item.selected { border-color: var(--primary); background: rgba(59, 130, 246, 0.15); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); }
+.option-radio { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; flex: none; }
+.selected .option-radio { border-color: var(--primary); background: var(--primary); }
+.selected .option-radio:after { content: ''; width: 8px; height: 8px; background: #fff; border-radius: 50%; }
+
+.exam-footer { display: flex; justify-content: space-between; margin-top: 28px; gap: 15px; }
+.btn-secondary, .btn-finish { border: 0; padding: 14px 28px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 1rem; transition: .2s; }
+.btn-secondary { background: var(--border); color: var(--text); }
+.btn-finish { background: linear-gradient(135deg, var(--success), #047857); color: #fff; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3); }
+
+/* Drawer Nav */
+.drawer { position: fixed; top: 0; right: -340px; width: 320px; height: 100%; background: var(--card-bg); backdrop-filter: blur(20px); box-shadow: -5px 0 25px rgba(0,0,0,0.3); z-index: 1000; transition: .3s; padding: 24px; overflow-y: auto; border-left: 1px solid var(--card-border); }
+.drawer.open { right: 0; }
+.drawer-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); z-index: 999; display: none; }
+.drawer-overlay.active { display: block; }
+.grid-nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 20px; }
+.nav-btn { aspect-ratio: 1; border: 1px solid var(--border); background: rgba(0, 0, 0, 0.2); color: var(--text); border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; transition: .2s; }
+.nav-btn.active { border-color: var(--primary); background: var(--primary); color: #fff; }
+.nav-btn.answered { background: rgba(16, 185, 129, 0.2); border-color: var(--success); color: var(--success); }
+
+/* Result Screens */
+.result-header { text-align: center; padding: 24px 0; }
+.score-circle { width: 160px; height: 160px; border-radius: 50%; border: 8px solid var(--accent); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px auto; background: var(--accent-glow); }
+.score-num { font-size: 2.8rem; font-weight: 900; color: var(--primary); }
+.score-total { font-size: 1rem; color: var(--light); font-weight: 700; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0; text-align: center; }
+.stat-card { padding: 16px; border-radius: 12px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border); }
+.stat-val { font-size: 1.6rem; font-weight: 800; }
+.review-item { border-bottom: 1px solid var(--border); padding: 20px 0; text-align: right; }
+.review-question { font-weight: 800; font-size: 1.1rem; margin-bottom: 10px; direction: ltr; text-align: left; }
+.ans-pill { display: inline-block; padding: 8px 14px; border-radius: 8px; font-size: .95rem; margin-top: 6px; font-weight: 700; }
+.ans-correct { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid var(--success); }
+.ans-wrong { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid var(--danger); }
+.re-take-section { margin-top: 30px; text-align: center; padding-top: 20px; border-top: 2px dashed var(--border); }
+
+/* Admin Panel */
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 15px; }
+.admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
+.admin-table th, .admin-table td { border: 1px solid var(--border); padding: 12px; text-align: center; }
+.admin-table th { background: rgba(59, 130, 246, 0.2); color: var(--primary); font-weight: 800; }
+.admin-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+.btn-danger { background: var(--danger); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+.btn-add-attempt { background: var(--success); color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
+
+@keyframes zoomIn { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes fadeInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+@media(max-width:600px){
+  .container { padding: 14px; }
+  .card { padding: 20px; }
+  .admin-table { font-size: 0.75rem; }
+  .admin-table th, .admin-table td { padding: 8px 4px; }
+}
+</style>
+</head>
+<body>
+
+<div id="intro-screen">
+  <div class="intro-img-container">
+    <img src="dr_photo.jpg" alt="الدكتور عبد الله قاعود" id="profile-intro" onerror="this.onerror=null; this.src='https://via.placeholder.com/170/1e293b/f59e0b?text=Dr.Abdullah';">
+  </div>
+  <div class="intro-title">الامتحان الإنجليزي للصف الثاني البكالوريا</div>
+  <div class="intro-subtitle">الطالب عبد الله قاعود | المبرمج</div>
+</div>
+
+<header>
+  <div class="brand-info">
+    <div class="img-wrapper">
+      <img src="dr_photo.jpg" alt="الدكتور عبد الله قاعود" id="profile-header" onerror="this.onerror=null; this.src='https://via.placeholder.com/48/1e293b/f59e0b?text=Dr';">
+    </div>
+    <div>
+      <h1>الامتحان الإنجليزي - الصف الثاني البكالوريا</h1>
+      <span ondblclick="checkAdminAccess()" title="Double click for Admin">دكتور عبدالله قاعود</span>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn-icon" onclick="toggleTheme()" title="تغيير الوضع المظلم/المضيء"><i class="fa-solid fa-sun" id="theme-icon"></i></button>
+    <button class="btn-icon" onclick="toggleFullscreen()" title="ملء الشاشة"><i class="fa-solid fa-expand"></i></button>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="toggleDrawer()"></div>
+<div class="drawer" id="drawer">
+  <h3 style="color:var(--primary)">قائمة الأسئلة (30 سؤالاً)</h3>
+  <div class="grid-nav" id="grid-nav"></div>
+</div>
+
+<div class="container">
+  
+  <!-- شاشة التسجيل -->
+  <div id="auth-screen" class="card">
+    <h2 style="margin-bottom:10px;color:var(--primary);font-weight:900">تسجيل بيانات الطالب</h2>
+    <h4 style="margin-bottom:20px;color:var(--accent);font-weight:700">الامتحان الإنجليزي الجرامر - الصف الثاني البكالوريا</h4>
+    <form id="reg-form" onsubmit="handleRegistration(event)">
+      <div class="form-group">
+        <label>الاسم الكامل</label>
+        <input type="text" id="student-name" class="form-control" placeholder="أدخل اسمك الثلاثي أو الرباعي" required>
+      </div>
+      <div class="form-group">
+        <label>رقم الهاتف</label>
+        <input type="tel" id="student-phone" class="form-control" placeholder="01XXXXXXXXX" maxlength="11" required>
+        <div id="phone-error" class="error-msg">رقم الهاتف غير صحيح</div>
+      </div>
+      <button type="submit" class="btn-primary" id="start-submit-btn">متابعة وتسجيل <i class="fa-solid fa-arrow-left" style="margin-right:8px"></i></button>
+    </form>
+  </div>
+
+  <!-- شاشة الامتحان -->
+  <div id="exam-screen">
+    <div class="exam-status-bar">
+      <div class="student-badge">
+        <div class="img-wrapper">
+          <img src="dr_photo.jpg" alt="طالب" id="profile-exam" onerror="this.onerror=null; this.src='https://via.placeholder.com/36/1e293b/f59e0b?text=User';">
+        </div>
+        <span id="display-student-name"></span>
+      </div>
+      <div class="timer-container">
+        <button class="btn-icon" id="toggle-nav-btn" onclick="toggleDrawer()" title="قائمة الأسئلة"><i class="fa-solid fa-bars"></i></button>
+        <div class="timer" id="timer-box"><i class="fa-regular fa-clock"></i> <span id="timer-display">02:00:00</span></div>
+      </div>
+    </div>
+    <div class="progress-bar-container"><div class="progress-bar-fill" id="progress-bar-fill"></div></div>
+    <div class="card">
+      <div class="question-header"><span id="question-index"></span><span>الامتحان الإنجليزي</span></div>
+      <div class="question-title" id="question-text">Loading...</div>
+      <div class="options-list" id="options-container"></div>
+      <div class="exam-footer">
+        <button class="btn-secondary" id="prev-btn" onclick="navigateQuestion(-1)">السابق</button>
+        <button class="btn-secondary" id="next-btn" onclick="navigateQuestion(1)">التالي</button>
+        <button class="btn-finish" id="finish-btn" style="display:none" onclick="confirmFinishExam()">إنهاء الاختبار</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- شاشة النتائج -->
+  <div id="result-screen">
+    <div class="card result-header">
+      <h2 id="celebration-title">نتيجة الامتحان</h2>
+      <p style="color:var(--light);margin-top:6px;font-weight:700" id="result-student-info"></p>
+      <div class="score-circle"><div class="score-num" id="final-score-val">0</div><div class="score-total">من 30</div></div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-val" style="color:var(--primary)" id="stat-percent">0%</div><div>النسبة</div></div>
+        <div class="stat-card"><div class="stat-val" style="color:var(--success)" id="stat-correct">0</div><div>صحيحة</div></div>
+        <div class="stat-card"><div class="stat-val" style="color:var(--danger)" id="stat-wrong">0</div><div>خاطئة</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div id="review-container"></div>
+      <div class="re-take-section" id="re-take-section"></div>
+    </div>
+  </div>
+
+  <!-- قاعدة بيانات الأستاذ المخفية -->
+  <div id="admin-screen" class="card" style="max-width: 100%;">
+    <div class="admin-header">
+      <h2 style="color:var(--primary)"><i class="fa-solid fa-database"></i> قاعدة بيانات الطلاب</h2>
+      <button class="btn-danger" onclick="clearDatabase()"><i class="fa-solid fa-trash"></i> مسح السجلات</button>
+    </div>
+    <div style="overflow-x: auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>الاسم</th>
+            <th>الرقم</th>
+            <th>الدرجة</th>
+            <th>النسبة</th>
+            <th>المحاولات</th>
+            <th>إدارة</th>
+            <th>وقت الانتهاء</th>
+          </tr>
+        </thead>
+        <tbody id="admin-table-body"></tbody>
+      </table>
+    </div>
+    <button class="btn-secondary" style="margin-top:20px; width:100%" onclick="location.reload()">تسجيل الخروج والعودة</button>
+  </div>
+
+</div>
+
+<script>
+const ADMIN_PASSWORD = "DrQaoud_Admin$2026!Exam";
+
+const examQuestions = [
+  [1, "The boy ______ sits beside me in class is Ali.", ["a) who", "b) which", "c) where", "d) when"], 0],
+  [2, "The book ______ I bought yesterday was very expensive.", ["a) who", "b) which", "c) where", "d) whose"], 1],
+  [3, "Ali is ______ than Ahmed.", ["a) tall", "b) taller", "c) tallest", "d) more tall"], 1],
+  [4, "Luxor is a city ______ we live peacefully.", ["a) which", "b) where", "c) when", "d) whom"], 1],
+  [5, "Ramadan is a month ______ muslims fast.", ["a) which", "b) where", "c) when", "d) whose"], 2],
+  [6, "She is the ______ intelligent student in our class.", ["a) more", "b) most", "c) much", "d) less"], 1],
+  [7, "This tie is ______ small for me to wear.", ["a) to", "b) too", "c) two", "d) so"], 1],
+  [8, "The movie we watched last night was very ______", ["a) bored", "b) boring", "c) bore", "d) boredom"], 1],
+  [9, "Cairo is the ______ city in Egypt.", ["a) large", "b) larger", "c) largest", "d) most large"], 2],
+  [10, "That is the school ______ I studied when I was young.", ["a) which", "b) where", "c) that", "d) when"], 1],
+  [11, "The man ______ car was stolen called the police.", ["a) who", "b) whom", "c) whose", "d) which"], 2],
+  [12, "The book ______ by Naguib Mahfouz was great.", ["a) writing", "b) written", "c) wrote", "d) was write"], 1],
+  [13, "He is ______ than his brother at mathematics.", ["a) good", "b) better", "c) best", "d) well"], 1],
+  [14, "This is the reason ______ I came here today.", ["a) why", "b) where", "c) which", "d) how"], 0],
+  [15, "Luxor is a city in ______ we live peacefully.", ["a) which", "b) where", "c) that", "d) when"], 0],
+  [16, "I played a tennis match against Ali, ______ made me very tired.", ["a) who", "b) which", "c) that", "d) a & c"], 1],
+  [17, "I can't understand ______ you said during the lecture.", ["a) which", "b) that", "c) what", "d) why"], 2],
+  [18, "This is the man to ______ I must apologize.", ["a) who", "b) whom", "c) that", "d) whose"], 1],
+  [19, "The more you eat, the ______ you become.", ["a) fat", "b) fatter", "c) fattest", "d) more fat"], 1],
+  [20, "The boy who is afraid ran away. We can say: He is a ______ boy.", ["a) scared", "b) afraid", "c) asleep", "d) alike"], 0],
+  [21, "If you need ______ information, please contact the office.", ["a) further", "b) farther", "c) farthest", "d) furthest"], 0],
+  [22, "The boy with ______ I live is a professional doctor.", ["a) who", "b) whom", "c) that", "d) whose"], 1],
+  [23, "The student ______ project won first prize was awarded a scholarship.", ["a) who", "b) whose", "c) whom", "d) which"], 1],
+  [24, "He refused to answer my questions, ______ was very rude.", ["a) that", "b) what", "c) which", "d) it"], 2],
+  [25, "Having ______ his homework, Omar went out to play football.", ["a) finish", "b) finished", "c) finishing", "d) been finished"], 1],
+  [26, "______ in simple English, the book is easy to understand.", ["a) Writing", "b) Written", "c) Having written", "d) Wrote"], 1],
+  [27, "The hotel ______ we stayed was exceptionally luxurious.", ["a) which", "b) at which", "c) where", "d) b & c"], 3],
+  [28, "Ali is the tallest boy in the class. (Choose equivalent)", ["a) Ali is taller than any boy.", "b) Ali is taller than any other boy.", "c) Ali is taller than all boys.", "d) Ali is taller of all boys."], 1],
+  [29, "He was the first man ______ the summit of Mount Everest.", ["a) reaching", "b) to reach", "c) reached", "d) who reach"], 1],
+  [30, "The longer you wait, ______ it becomes to solve the problem.", ["a) harder", "b) the harder", "c) the hardest", "d) more hard"], 1]
+].map(x => ({ id: x[0], text: x[1], options: x[2], ans: x[3] }));
+
+let currentStudent = { name: "", phone: "", attempts: 0 };
+let currentQuestionIdx = 0;
+let userAnswers = {};
+let timeRemaining = 7200;
+let timerInterval = null;
+
+window.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    let e = document.getElementById("intro-screen");
+    if(e) e.style.display = "none";
+  }, 3000);
+});
+
+function checkAdminAccess() {
+  let pass = prompt("منطقة محظورة! أدخل الرقم السري لقاعدة البيانات الخاصة بالدكتور:");
+  if (pass === ADMIN_PASSWORD) {
+    document.querySelectorAll('.container > div').forEach(div => div.style.display = 'none');
+    document.getElementById("admin-screen").style.display = "block";
+    renderAdminTable();
+  } else if(pass) {
+    alert("الرقم السري غير صحيح!");
+  }
+}
+
+function renderAdminTable() {
+  let db = JSON.parse(localStorage.getItem("admin_db_students") || "[]");
+  let tbody = document.getElementById("admin-table-body");
+  tbody.innerHTML = "";
+  if(db.length === 0) {
+    tbody.innerHTML = "<tr><td colspan='7'>لا يوجد طلاب أدوا الامتحان حتى الآن.</td></tr>";
+    return;
+  }
+  db.forEach(student => {
+    tbody.innerHTML += `
+      <tr>
+        <td style="font-weight:bold">${student.name}</td>
+        <td>${student.phone}</td>
+        <td style="color:var(--accent); font-weight:bold">${student.score} / ${student.total}</td>
+        <td style="color:${student.pct >= 50 ? 'var(--success)' : 'var(--danger)'}">${student.pct}%</td>
+        <td>${student.attempts}</td>
+        <td><button class="btn-add-attempt" onclick="resetStudentAttempts('${student.phone}')">+ زيادة محاولة</button></td>
+        <td style="font-size:0.8rem">${student.date}</td>
+      </tr>
+    `;
+  });
+}
+
+function resetStudentAttempts(phone) {
+  let db = JSON.parse(localStorage.getItem("admin_db_students") || "[]");
+  let idx = db.findIndex(s => s.phone === phone);
+  if(idx > -1) {
+    if(db[idx].attempts > 0) db[idx].attempts -= 1;
+    localStorage.setItem("admin_db_students", JSON.stringify(db));
+    
+    let stData = JSON.parse(localStorage.getItem("student_data_" + phone) || "{}");
+    if(stData.attempts) {
+      stData.attempts -= 1;
+      localStorage.setItem("student_data_" + phone, JSON.stringify(stData));
+    }
+    alert("تمت زيادة محاولة إضافية للطالب بنجاح!");
+    renderAdminTable();
+  }
+}
+
+function clearDatabase() {
+  if(confirm("هل أنت متأكد من مسح جميع بيانات ودرجات الطلاب نهائياً؟")) {
+    localStorage.removeItem("admin_db_students");
+    renderAdminTable();
+  }
+}
+
+function saveToAdminDB(student, stats) {
+  let db = JSON.parse(localStorage.getItem("admin_db_students") || "[]");
+  let index = db.findIndex(s => s.phone === student.phone);
+  let record = {
+    name: student.name,
+    phone: student.phone,
+    score: stats.score,
+    total: stats.total,
+    pct: stats.pct,
+    attempts: student.attempts,
+    date: new Date().toLocaleString('ar-EG')
+  };
+  if(index > -1) db[index] = record;
+  else db.push(record);
+  localStorage.setItem("admin_db_students", JSON.stringify(db));
+}
+
+function validatePhone(p) { return /^(010|011|012|015)\d{8}$/.test(p); }
+
+function handleRegistration(e) {
+  e.preventDefault();
+  let name = document.getElementById("student-name").value.trim();
+  let phone = document.getElementById("student-phone").value.trim();
+  let err = document.getElementById("phone-error");
+
+  if (!validatePhone(phone)) { err.style.display = "block"; return; }
+  err.style.display = "none";
+
+  let storedData = localStorage.getItem("student_data_" + phone);
+  if (storedData) {
+    currentStudent = JSON.parse(storedData);
+    currentStudent.name = name; 
+    if (currentStudent.attempts >= 3) {
+      userAnswers = currentStudent.lastAnswers || {};
+      showDirectResultScreen();
+      return;
+    }
+  } else {
+    currentStudent = { name: name, phone: phone, attempts: 0 };
+  }
+  startNewExamAttempt();
+}
+
+function startNewExamAttempt() {
+  userAnswers = {}; currentQuestionIdx = 0; timeRemaining = 7200;
+  document.getElementById("auth-screen").style.display = "none";
+  document.getElementById("result-screen").style.display = "none";
+  document.getElementById("exam-screen").style.display = "block";
+  document.getElementById("display-student-name").innerText = currentStudent.name;
+
+  renderDrawerGrid(); renderQuestion(); startTimer();
+}
+
+function renderQuestion() {
+  let q = examQuestions[currentQuestionIdx];
+  document.getElementById("question-index").innerText = `السؤال ${currentQuestionIdx + 1} من ${examQuestions.length}`;
+  document.getElementById("question-text").innerText = `${q.id}. ${q.text}`;
+  document.getElementById("progress-bar-fill").style.width = (((currentQuestionIdx + 1) / examQuestions.length) * 100) + "%";
+
+  let c = document.getElementById("options-container"); c.innerHTML = "";
+  q.options.forEach((opt, i) => {
+    let d = document.createElement("div");
+    d.className = "option-item " + (userAnswers[currentQuestionIdx] === i ? "selected" : "");
+    d.onclick = () => { userAnswers[currentQuestionIdx] = i; renderQuestion(); };
+    d.innerHTML = `<div class="option-radio"></div><div>${opt}</div>`;
+    c.appendChild(d);
+  });
+
+  document.getElementById("prev-btn").style.visibility = currentQuestionIdx === 0 ? "hidden" : "visible";
+  document.getElementById("next-btn").style.display = currentQuestionIdx === examQuestions.length - 1 ? "none" : "block";
+  document.getElementById("finish-btn").style.display = currentQuestionIdx === examQuestions.length - 1 ? "block" : "none";
+  updateDrawerGrid();
+}
+
+function navigateQuestion(d) {
+  currentQuestionIdx = Math.max(0, Math.min(examQuestions.length - 1, currentQuestionIdx + d));
+  renderQuestion();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  let timerBox = document.getElementById("timer-box");
+  timerBox.classList.remove("timer-warning");
+
+  timerInterval = setInterval(() => {
+    if (timeRemaining <= 0) { 
+      clearInterval(timerInterval); 
+      finishExamDirectly(); 
+    } else { 
+      timeRemaining--; 
+      displayTime(); 
+      if (timeRemaining <= 3600) {
+        timerBox.classList.add("timer-warning");
+      }
+    }
+  }, 1000);
+}
+
+function displayTime() {
+  let h = Math.floor(timeRemaining / 3600).toString().padStart(2, "0");
+  let m = Math.floor((timeRemaining % 3600) / 60).toString().padStart(2, "0");
+  let s = (timeRemaining % 60).toString().padStart(2, "0");
+  document.getElementById("timer-display").innerText = `${h}:${m}:${s}`;
+}
+
+function toggleDrawer() { document.getElementById("drawer").classList.toggle("open"); document.getElementById("drawer-overlay").classList.toggle("active"); }
+
+function renderDrawerGrid() {
+  let g = document.getElementById("grid-nav"); g.innerHTML = "";
+  examQuestions.forEach((_, i) => {
+    let b = document.createElement("button"); b.className = "nav-btn"; b.innerText = i + 1;
+    b.onclick = () => { currentQuestionIdx = i; renderQuestion(); toggleDrawer(); };
+    g.appendChild(b);
+  });
+}
+
+function updateDrawerGrid() {
+  document.querySelectorAll(".nav-btn").forEach((b, i) => {
+    b.className = "nav-btn";
+    if (i === currentQuestionIdx) b.classList.add("active");
+    if (userAnswers[i] !== undefined) b.classList.add("answered");
+  });
+}
+
+function confirmFinishExam() { if (confirm("هل أنت متأكد من إنهاء الامتحان؟")) finishExamDirectly(); }
+
+function calculateScore() {
+  let score = 0, correct = 0, wrong = 0;
+  examQuestions.forEach((q, i) => {
+    if (userAnswers[i] === q.ans) { score++; correct++; }
+    else if (userAnswers[i] !== undefined) wrong++;
+  });
+  return { score, correct, wrong, total: examQuestions.length, pct: Math.round((score / examQuestions.length) * 100) };
+}
+
+function finishExamDirectly() {
+  clearInterval(timerInterval);
+  let stats = calculateScore();
+  
+  currentStudent.attempts = (currentStudent.attempts || 0) + 1;
+  currentStudent.lastAnswers = userAnswers;
+  currentStudent.lastScore = stats;
+  localStorage.setItem("student_data_" + currentStudent.phone, JSON.stringify(currentStudent));
+  
+  saveToAdminDB(currentStudent, stats);
+
+  document.getElementById("exam-screen").style.display = "none";
+  showDirectResultScreen();
+}
+
+function showDirectResultScreen() {
+  document.querySelectorAll('.container > div').forEach(div => div.style.display = 'none');
+  document.getElementById("result-screen").style.display = "block";
+  renderFinalResults();
+}
+
+function renderFinalResults() {
+  let stats = currentStudent.lastScore || calculateScore();
+  let c = document.getElementById("review-container"); c.innerHTML = "";
+  examQuestions.forEach((q, i) => {
+    let a = userAnswers[i]; let ok = (a === q.ans);
+    c.innerHTML += `
+      <div class="review-item">
+        <div class="review-question">Q${i + 1}: ${q.text}</div>
+        <div class="ans-pill ${ok ? "ans-correct" : "ans-wrong"}">إجابتك: ${a !== undefined ? q.options[a] : "لم يتم الإجابة"}</div>
+        ${!ok ? `<div class="ans-pill ans-correct">الصحيحة: ${q.options[q.ans]}</div>` : ""}
+      </div>`;
+  });
+
+  document.getElementById("final-score-val").innerText = stats.score;
+  document.getElementById("stat-percent").innerText = stats.pct + "%";
+  document.getElementById("stat-correct").innerText = stats.correct;
+  document.getElementById("stat-wrong").innerText = stats.wrong;
+  document.getElementById("result-student-info").innerText = `${currentStudent.name} | ${currentStudent.phone} (المحاولة ${currentStudent.attempts} من 3)`;
+
+  let t = document.getElementById("celebration-title");
+  if (stats.pct >= 85) { t.innerText = "أداء ممتاز ومميز 🎉"; if(typeof confetti === "function") confetti(); } 
+  else if (stats.pct >= 50) t.innerText = "عمل جيد 👍";
+  else t.innerText = "استمر في التدريب 💪";
+
+  let reTakeSec = document.getElementById("re-take-section");
+  if (currentStudent.attempts < 3) {
+    reTakeSec.innerHTML = `<button class="btn-primary" onclick="startReTakeProcess()">بدء الامتحان مجدداً (المحاولة ${currentStudent.attempts + 1} من 3)</button>`;
+  } else {
+    reTakeSec.innerHTML = `<div style="color:var(--danger);font-weight:bold;padding:15px;background:rgba(239,68,68,0.1);border-radius:12px;">⚠️ استنفذت جميع المحاولات (3/3).</div>`;
+  }
+}
+
+function startReTakeProcess() {
+  if (currentStudent.attempts >= 3) return alert("استنفذت جميع المحاولات!");
+  if (confirm("بدء محاولة جديدة؟")) startNewExamAttempt();
+}
+
+function toggleTheme() {
+  let html = document.documentElement; let icon = document.getElementById("theme-icon");
+  if (html.getAttribute("data-theme") === "light") { html.setAttribute("data-theme", "dark"); icon.className = "fa-solid fa-sun"; } 
+  else { html.setAttribute("data-theme", "light"); icon.className = "fa-solid fa-moon"; }
+}
+function toggleFullscreen() { document.fullscreenElement ? document.exitFullscreen?.() : document.documentElement.requestFullscreen().catch(()=>{}); }
+</script>
+</body>
+</html>
